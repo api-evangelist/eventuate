@@ -1,0 +1,375 @@
+openapi: 3.1.0
+info:
+  title: Eventuate REST API
+  description: >-
+    The Eventuate REST API provides HTTP endpoints for managing aggregates,
+    events, subscriptions, and event-sourced entities in the Eventuate platform
+    for distributed data management in microservices.
+  version: 1.0.0
+  contact:
+    name: Eventuate
+    url: https://eventuate.io/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+  - url: '{baseUrl}'
+    description: Eventuate Server
+    variables:
+      baseUrl:
+        default: http://localhost:8080
+paths:
+  /entity/{entityType}:
+    post:
+      operationId: createEntity
+      summary: Create an entity
+      description: Creates a new event-sourced aggregate entity with initial events.
+      tags:
+        - Entities
+      parameters:
+        - name: entityType
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateEntityRequest'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateEntityResponse'
+  /entity/{entityType}/{entityId}:
+    get:
+      operationId: getEntity
+      summary: Get an entity
+      description: Returns the current state and events of an aggregate entity.
+      tags:
+        - Entities
+      parameters:
+        - name: entityType
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: entityId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EntityWithEvents'
+    post:
+      operationId: updateEntity
+      summary: Update an entity
+      description: Updates an entity by appending new events.
+      tags:
+        - Entities
+      parameters:
+        - name: entityType
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: entityId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateEntityRequest'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateEntityResponse'
+  /entity/{entityType}/{entityId}/events:
+    get:
+      operationId: getEntityEvents
+      summary: Get events for an entity
+      description: Returns the event history for a specific aggregate entity.
+      tags:
+        - Events
+      parameters:
+        - name: entityType
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: entityId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Event'
+  /subscriptions:
+    post:
+      operationId: createSubscription
+      summary: Create an event subscription
+      description: Creates a new subscription to receive events for specified entity types.
+      tags:
+        - Subscriptions
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateSubscriptionRequest'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Subscription'
+  /subscriptions/{subscriptionId}:
+    get:
+      operationId: getSubscription
+      summary: Get a subscription
+      description: Returns details of a specific event subscription.
+      tags:
+        - Subscriptions
+      parameters:
+        - name: subscriptionId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Subscription'
+    delete:
+      operationId: deleteSubscription
+      summary: Delete a subscription
+      description: Deletes an event subscription.
+      tags:
+        - Subscriptions
+      parameters:
+        - name: subscriptionId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Subscription deleted
+  /subscriptions/{subscriptionId}/events:
+    get:
+      operationId: getSubscriptionEvents
+      summary: Get events from a subscription
+      description: Retrieves pending events for a subscription.
+      tags:
+        - Subscriptions
+      parameters:
+        - name: subscriptionId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: maxEvents
+          in: query
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SubscriptionEvent'
+  /subscriptions/{subscriptionId}/acknowledge:
+    post:
+      operationId: acknowledgeEvents
+      summary: Acknowledge events
+      description: Acknowledges receipt and processing of subscription events.
+      tags:
+        - Subscriptions
+      parameters:
+        - name: subscriptionId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                eventIds:
+                  type: array
+                  items:
+                    type: string
+      responses:
+        '200':
+          description: Events acknowledged
+  /health:
+    get:
+      operationId: getHealth
+      summary: Health check
+      description: Returns the health status of the Eventuate server.
+      tags:
+        - System
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+components:
+  schemas:
+    CreateEntityRequest:
+      type: object
+      required:
+        - entityTypeName
+        - events
+      properties:
+        entityTypeName:
+          type: string
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/EventData'
+    CreateEntityResponse:
+      type: object
+      properties:
+        entityId:
+          type: string
+        entityVersion:
+          type: string
+        eventIds:
+          type: array
+          items:
+            type: string
+    EntityWithEvents:
+      type: object
+      properties:
+        entityId:
+          type: string
+        entityVersion:
+          type: string
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/Event'
+    UpdateEntityRequest:
+      type: object
+      required:
+        - entityVersion
+        - events
+      properties:
+        entityVersion:
+          type: string
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/EventData'
+    UpdateEntityResponse:
+      type: object
+      properties:
+        entityVersion:
+          type: string
+        eventIds:
+          type: array
+          items:
+            type: string
+    EventData:
+      type: object
+      required:
+        - eventType
+        - eventData
+      properties:
+        eventType:
+          type: string
+        eventData:
+          type: string
+    Event:
+      type: object
+      properties:
+        id:
+          type: string
+        eventType:
+          type: string
+        eventData:
+          type: string
+        entityId:
+          type: string
+        metadata:
+          type: object
+    CreateSubscriptionRequest:
+      type: object
+      required:
+        - subscriberId
+        - entityTypesAndEvents
+      properties:
+        subscriberId:
+          type: string
+        entityTypesAndEvents:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+    Subscription:
+      type: object
+      properties:
+        subscriptionId:
+          type: string
+        subscriberId:
+          type: string
+        entityTypesAndEvents:
+          type: object
+    SubscriptionEvent:
+      type: object
+      properties:
+        id:
+          type: string
+        eventType:
+          type: string
+        eventData:
+          type: string
+        entityId:
+          type: string
+        entityType:
+          type: string
+        swimlane:
+          type: string
+        offset:
+          type: integer
+          format: int64

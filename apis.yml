@@ -34,7 +34,9 @@ apis:
       - Sagas
       - Distributed Data
       - Event-Driven
-    properties: []
+    properties:
+      - type: OpenAPI
+        url: https://raw.githubusercontent.com/api-evangelist/eventuate/refs/heads/main/openapi/eventuate-api.yml
 common:
   - type: Website
     url: https://eventuate.io/
