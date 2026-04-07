@@ -7,12 +7,12 @@ description: >-
 type: Index
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 tags:
-  - Event Sourcing
   - CQRS
+  - Distributed Data
+  - Event Sourcing
+  - Event-Driven
   - Microservices
   - Sagas
-  - Distributed Data
-  - Event-Driven
 url: >-
   https://raw.githubusercontent.com/api-evangelist/eventuate/refs/heads/main/apis.yml
 created: '2026-03-26'
@@ -28,12 +28,12 @@ apis:
       the Saga pattern and transactional outbox.
     humanURL: https://eventuate.io/
     tags:
-      - Event Sourcing
       - CQRS
+      - Distributed Data
+      - Event Sourcing
+      - Event-Driven
       - Microservices
       - Sagas
-      - Distributed Data
-      - Event-Driven
     properties:
       - type: OpenAPI
         url: https://raw.githubusercontent.com/api-evangelist/eventuate/refs/heads/main/openapi/eventuate-api.yml
