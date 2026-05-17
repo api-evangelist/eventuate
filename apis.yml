@@ -42,7 +42,7 @@ common:
     url: https://eventuate.io/
   - type: Documentation
     url: https://eventuate.io/docs/general/getting-started.html
-  - type: Getting Started
+  - type: GettingStarted
     url: https://eventuate.io/exampleapps.html
   - type: GitHub
     url: https://github.com/eventuate-tram
