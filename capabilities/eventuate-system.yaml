@@ -1,0 +1,67 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Eventuate REST API — System
+  description: 'Eventuate REST API — System. 1 operations. Lead operation: Health check. Self-contained Naftiko capability
+    covering one Eventuate business surface.'
+  tags:
+  - Eventuate
+  - System
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    EVENTUATE_API_KEY: EVENTUATE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: eventuate-system
+    baseUri: ''
+    description: Eventuate REST API — System business capability. Self-contained, no shared references.
+    resources:
+    - name: health
+      path: /health
+      operations:
+      - name: gethealth
+        method: GET
+        description: Health check
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+  exposes:
+  - type: rest
+    namespace: eventuate-system-rest
+    port: 8080
+    description: REST adapter for Eventuate REST API — System. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/health
+      name: health
+      description: REST surface for health.
+      operations:
+      - method: GET
+        name: gethealth
+        description: Health check
+        call: eventuate-system.gethealth
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: eventuate-system-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Eventuate REST API — System. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: health-check
+      description: Health check
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: eventuate-system.gethealth
+      outputParameters:
+      - type: object
+        mapping: $.

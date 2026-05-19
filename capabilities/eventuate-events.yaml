@@ -1,0 +1,82 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Eventuate REST API — Events
+  description: 'Eventuate REST API — Events. 1 operations. Lead operation: Get events for an entity. Self-contained Naftiko
+    capability covering one Eventuate business surface.'
+  tags:
+  - Eventuate
+  - Events
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    EVENTUATE_API_KEY: EVENTUATE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: eventuate-events
+    baseUri: ''
+    description: Eventuate REST API — Events business capability. Self-contained, no shared references.
+    resources:
+    - name: entity-entityType-entityId-events
+      path: /entity/{entityType}/{entityId}/events
+      operations:
+      - name: getentityevents
+        method: GET
+        description: Get events for an entity
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: entityType
+          in: path
+          type: string
+          required: true
+        - name: entityId
+          in: path
+          type: string
+          required: true
+  exposes:
+  - type: rest
+    namespace: eventuate-events-rest
+    port: 8080
+    description: REST adapter for Eventuate REST API — Events. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/entity/{entitytype}/{entityid}/events
+      name: entity-entitytype-entityid-events
+      description: REST surface for entity-entityType-entityId-events.
+      operations:
+      - method: GET
+        name: getentityevents
+        description: Get events for an entity
+        call: eventuate-events.getentityevents
+        with:
+          entityType: rest.entityType
+          entityId: rest.entityId
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: eventuate-events-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Eventuate REST API — Events. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: get-events-entity
+      description: Get events for an entity
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: eventuate-events.getentityevents
+      with:
+        entityType: tools.entityType
+        entityId: tools.entityId
+      outputParameters:
+      - type: object
+        mapping: $.

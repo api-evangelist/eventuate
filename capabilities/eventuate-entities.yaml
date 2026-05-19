@@ -1,0 +1,177 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Eventuate REST API — Entities
+  description: 'Eventuate REST API — Entities. 3 operations. Lead operation: Create an entity. Self-contained Naftiko capability
+    covering one Eventuate business surface.'
+  tags:
+  - Eventuate
+  - Entities
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    EVENTUATE_API_KEY: EVENTUATE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: eventuate-entities
+    baseUri: ''
+    description: Eventuate REST API — Entities business capability. Self-contained, no shared references.
+    resources:
+    - name: entity-entityType
+      path: /entity/{entityType}
+      operations:
+      - name: createentity
+        method: POST
+        description: Create an entity
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: entityType
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: entity-entityType-entityId
+      path: /entity/{entityType}/{entityId}
+      operations:
+      - name: getentity
+        method: GET
+        description: Get an entity
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: entityType
+          in: path
+          type: string
+          required: true
+        - name: entityId
+          in: path
+          type: string
+          required: true
+      - name: updateentity
+        method: POST
+        description: Update an entity
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: entityType
+          in: path
+          type: string
+          required: true
+        - name: entityId
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+  exposes:
+  - type: rest
+    namespace: eventuate-entities-rest
+    port: 8080
+    description: REST adapter for Eventuate REST API — Entities. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/entity/{entitytype}
+      name: entity-entitytype
+      description: REST surface for entity-entityType.
+      operations:
+      - method: POST
+        name: createentity
+        description: Create an entity
+        call: eventuate-entities.createentity
+        with:
+          entityType: rest.entityType
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/entity/{entitytype}/{entityid}
+      name: entity-entitytype-entityid
+      description: REST surface for entity-entityType-entityId.
+      operations:
+      - method: GET
+        name: getentity
+        description: Get an entity
+        call: eventuate-entities.getentity
+        with:
+          entityType: rest.entityType
+          entityId: rest.entityId
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: updateentity
+        description: Update an entity
+        call: eventuate-entities.updateentity
+        with:
+          entityType: rest.entityType
+          entityId: rest.entityId
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: eventuate-entities-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Eventuate REST API — Entities. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: create-entity
+      description: Create an entity
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: eventuate-entities.createentity
+      with:
+        entityType: tools.entityType
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-entity
+      description: Get an entity
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: eventuate-entities.getentity
+      with:
+        entityType: tools.entityType
+        entityId: tools.entityId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-entity
+      description: Update an entity
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: eventuate-entities.updateentity
+      with:
+        entityType: tools.entityType
+        entityId: tools.entityId
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
