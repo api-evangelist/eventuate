@@ -1,0 +1,244 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Eventuate REST API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Entities",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create an entity",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{baseUrl}/entity/:entityType",
+            "params": [
+              {
+                "name": "entityType",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new event-sourced aggregate entity with initial events."
+        },
+        {
+          "info": {
+            "name": "Get an entity",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{baseUrl}/entity/:entityType/:entityId",
+            "params": [
+              {
+                "name": "entityType",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "entityId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the current state and events of an aggregate entity."
+        },
+        {
+          "info": {
+            "name": "Update an entity",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{baseUrl}/entity/:entityType/:entityId",
+            "params": [
+              {
+                "name": "entityType",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "entityId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an entity by appending new events."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Events",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get events for an entity",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{baseUrl}/entity/:entityType/:entityId/events",
+            "params": [
+              {
+                "name": "entityType",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "entityId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the event history for a specific aggregate entity."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Subscriptions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create an event subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{baseUrl}/subscriptions",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new subscription to receive events for specified entity types."
+        },
+        {
+          "info": {
+            "name": "Get a subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{baseUrl}/subscriptions/:subscriptionId",
+            "params": [
+              {
+                "name": "subscriptionId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns details of a specific event subscription."
+        },
+        {
+          "info": {
+            "name": "Delete a subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{baseUrl}/subscriptions/:subscriptionId",
+            "params": [
+              {
+                "name": "subscriptionId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Deletes an event subscription."
+        },
+        {
+          "info": {
+            "name": "Get events from a subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{baseUrl}/subscriptions/:subscriptionId/events",
+            "params": [
+              {
+                "name": "subscriptionId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "maxEvents",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Retrieves pending events for a subscription."
+        },
+        {
+          "info": {
+            "name": "Acknowledge events",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{baseUrl}/subscriptions/:subscriptionId/acknowledge",
+            "params": [
+              {
+                "name": "subscriptionId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Acknowledges receipt and processing of subscription events."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "System",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Health check",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{baseUrl}/health"
+          },
+          "docs": "Returns the health status of the Eventuate server."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
