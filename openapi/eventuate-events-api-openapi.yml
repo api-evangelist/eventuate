@@ -1,0 +1,62 @@
+openapi: 3.1.0
+info:
+  title: Eventuate REST Entities Events API
+  description: The Eventuate REST API provides HTTP endpoints for managing aggregates, events, subscriptions, and event-sourced entities in the Eventuate platform for distributed data management in microservices.
+  version: 1.0.0
+  contact:
+    name: Eventuate
+    url: https://eventuate.io/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+- url: '{baseUrl}'
+  description: Eventuate Server
+  variables:
+    baseUrl:
+      default: http://localhost:8080
+tags:
+- name: Events
+paths:
+  /entity/{entityType}/{entityId}/events:
+    get:
+      operationId: getEntityEvents
+      summary: Get events for an entity
+      description: Returns the event history for a specific aggregate entity.
+      tags:
+      - Events
+      parameters:
+      - name: entityType
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: entityId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Event'
+components:
+  schemas:
+    Event:
+      type: object
+      properties:
+        id:
+          type: string
+        eventType:
+          type: string
+        eventData:
+          type: string
+        entityId:
+          type: string
+        metadata:
+          type: object

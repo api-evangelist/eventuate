@@ -1,0 +1,181 @@
+openapi: 3.1.0
+info:
+  title: Eventuate REST Entities API
+  description: The Eventuate REST API provides HTTP endpoints for managing aggregates, events, subscriptions, and event-sourced entities in the Eventuate platform for distributed data management in microservices.
+  version: 1.0.0
+  contact:
+    name: Eventuate
+    url: https://eventuate.io/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+- url: '{baseUrl}'
+  description: Eventuate Server
+  variables:
+    baseUrl:
+      default: http://localhost:8080
+tags:
+- name: Entities
+paths:
+  /entity/{entityType}:
+    post:
+      operationId: createEntity
+      summary: Create an entity
+      description: Creates a new event-sourced aggregate entity with initial events.
+      tags:
+      - Entities
+      parameters:
+      - name: entityType
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateEntityRequest'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateEntityResponse'
+  /entity/{entityType}/{entityId}:
+    get:
+      operationId: getEntity
+      summary: Get an entity
+      description: Returns the current state and events of an aggregate entity.
+      tags:
+      - Entities
+      parameters:
+      - name: entityType
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: entityId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EntityWithEvents'
+    post:
+      operationId: updateEntity
+      summary: Update an entity
+      description: Updates an entity by appending new events.
+      tags:
+      - Entities
+      parameters:
+      - name: entityType
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: entityId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateEntityRequest'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateEntityResponse'
+components:
+  schemas:
+    EventData:
+      type: object
+      required:
+      - eventType
+      - eventData
+      properties:
+        eventType:
+          type: string
+        eventData:
+          type: string
+    CreateEntityRequest:
+      type: object
+      required:
+      - entityTypeName
+      - events
+      properties:
+        entityTypeName:
+          type: string
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/EventData'
+    UpdateEntityResponse:
+      type: object
+      properties:
+        entityVersion:
+          type: string
+        eventIds:
+          type: array
+          items:
+            type: string
+    EntityWithEvents:
+      type: object
+      properties:
+        entityId:
+          type: string
+        entityVersion:
+          type: string
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/Event'
+    Event:
+      type: object
+      properties:
+        id:
+          type: string
+        eventType:
+          type: string
+        eventData:
+          type: string
+        entityId:
+          type: string
+        metadata:
+          type: object
+    UpdateEntityRequest:
+      type: object
+      required:
+      - entityVersion
+      - events
+      properties:
+        entityVersion:
+          type: string
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/EventData'
+    CreateEntityResponse:
+      type: object
+      properties:
+        entityId:
+          type: string
+        entityVersion:
+          type: string
+        eventIds:
+          type: array
+          items:
+            type: string

@@ -1,0 +1,37 @@
+openapi: 3.1.0
+info:
+  title: Eventuate REST Entities System API
+  description: The Eventuate REST API provides HTTP endpoints for managing aggregates, events, subscriptions, and event-sourced entities in the Eventuate platform for distributed data management in microservices.
+  version: 1.0.0
+  contact:
+    name: Eventuate
+    url: https://eventuate.io/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+- url: '{baseUrl}'
+  description: Eventuate Server
+  variables:
+    baseUrl:
+      default: http://localhost:8080
+tags:
+- name: System
+paths:
+  /health:
+    get:
+      operationId: getHealth
+      summary: Health check
+      description: Returns the health status of the Eventuate server.
+      tags:
+      - System
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
