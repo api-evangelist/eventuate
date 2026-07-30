@@ -4,7 +4,19 @@ description: >-
   Eventuate is a platform for developing transactional microservices using event sourcing and CQRS patterns, providing
   frameworks for managing distributed data consistency across services without two-phase commit.
 type: Index
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: freemium
+  onboarding: unknown
+  trial: false
+  try_now: false
+  public: false
+  label: Freemium
+  confidence: medium
+  source:
+  - plans
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/eventuate.png
 tags:
   - CQRS
   - Distributed Data
@@ -17,23 +29,42 @@ created: '2026-03-26'
 modified: '2026-05-19'
 specificationVersion: '0.19'
 apis:
-  - aid: eventuate:eventuate
-    name: Eventuate
-    description: >-
-      Eventuate is a platform for developing transactional microservices using event sourcing and CQRS patterns,
-      enabling reliable communication and data consistency across distributed services using the Saga pattern and
-      transactional outbox.
-    humanURL: https://eventuate.io/
-    tags:
-      - CQRS
-      - Distributed Data
-      - Event Sourcing
-      - Event-Driven
-      - Microservices
-      - Sagas
-    properties:
-      - type: OpenAPI
-        url: https://raw.githubusercontent.com/api-evangelist/eventuate/refs/heads/main/openapi/eventuate-api.yml
+- aid: eventuate:eventuate-entities-api
+  name: Eventuate Entities API
+  description: The Entities API from Eventuate — 2 operation(s) for entities.
+  humanURL: https://eventuate.io/
+  tags:
+  - Entities
+  properties:
+  - type: OpenAPI
+    url: openapi/eventuate-entities-api-openapi.yml
+- aid: eventuate:eventuate-events-api
+  name: Eventuate Events API
+  description: The Events API from Eventuate — 1 operation(s) for events.
+  humanURL: https://eventuate.io/
+  tags:
+  - Events
+  properties:
+  - type: OpenAPI
+    url: openapi/eventuate-events-api-openapi.yml
+- aid: eventuate:eventuate-subscriptions-api
+  name: Eventuate Subscriptions API
+  description: The Subscriptions API from Eventuate — 4 operation(s) for subscriptions.
+  humanURL: https://eventuate.io/
+  tags:
+  - Subscriptions
+  properties:
+  - type: OpenAPI
+    url: openapi/eventuate-subscriptions-api-openapi.yml
+- aid: eventuate:eventuate-system-api
+  name: Eventuate System API
+  description: The System API from Eventuate — 1 operation(s) for system.
+  humanURL: https://eventuate.io/
+  tags:
+  - System
+  properties:
+  - type: OpenAPI
+    url: openapi/eventuate-system-api-openapi.yml
 common:
   - type: AgenticAccess
     url: agentic-access/eventuate-agentic-access.yml
