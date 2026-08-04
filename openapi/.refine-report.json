@@ -1,0 +1,20 @@
+{
+  "provider": "eventuate",
+  "sources": [
+    "eventuate-entities-api-openapi.yml",
+    "eventuate-events-api-openapi.yml",
+    "eventuate-subscriptions-api-openapi.yml",
+    "eventuate-system-api-openapi.yml"
+  ],
+  "outputs": [
+    "eventuate-entities-api-openapi.yml",
+    "eventuate-events-api-openapi.yml",
+    "eventuate-subscriptions-api-openapi.yml",
+    "eventuate-system-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
