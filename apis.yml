@@ -43,6 +43,8 @@ apis:
   description: The Events API from Eventuate — 1 operation(s) for events.
   humanURL: https://eventuate.io/
   tags:
+  - Event
+  tags_raw:
   - Events
   properties:
   - type: OpenAPI
@@ -52,6 +54,8 @@ apis:
   description: The Subscriptions API from Eventuate — 4 operation(s) for subscriptions.
   humanURL: https://eventuate.io/
   tags:
+  - Subscription
+  tags_raw:
   - Subscriptions
   properties:
   - type: OpenAPI
