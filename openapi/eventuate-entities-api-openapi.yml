@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
   title: Eventuate REST Entities API
   description: The Eventuate REST API provides HTTP endpoints for managing aggregates, events, subscriptions, and event-sourced entities in the Eventuate platform for distributed data management in microservices.
@@ -101,6 +101,18 @@ paths:
                 $ref: '#/components/schemas/UpdateEntityResponse'
 components:
   schemas:
+    UpdateEntityRequest:
+      type: object
+      required:
+      - entityVersion
+      - events
+      properties:
+        entityVersion:
+          type: string
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/EventData'
     EventData:
       type: object
       required:
@@ -111,6 +123,28 @@ components:
           type: string
         eventData:
           type: string
+    EntityWithEvents:
+      type: object
+      properties:
+        entityId:
+          type: string
+        entityVersion:
+          type: string
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/Event'
+    CreateEntityResponse:
+      type: object
+      properties:
+        entityId:
+          type: string
+        entityVersion:
+          type: string
+        eventIds:
+          type: array
+          items:
+            type: string
     CreateEntityRequest:
       type: object
       required:
@@ -132,17 +166,6 @@ components:
           type: array
           items:
             type: string
-    EntityWithEvents:
-      type: object
-      properties:
-        entityId:
-          type: string
-        entityVersion:
-          type: string
-        events:
-          type: array
-          items:
-            $ref: '#/components/schemas/Event'
     Event:
       type: object
       properties:
@@ -156,26 +179,3 @@ components:
           type: string
         metadata:
           type: object
-    UpdateEntityRequest:
-      type: object
-      required:
-      - entityVersion
-      - events
-      properties:
-        entityVersion:
-          type: string
-        events:
-          type: array
-          items:
-            $ref: '#/components/schemas/EventData'
-    CreateEntityResponse:
-      type: object
-      properties:
-        entityId:
-          type: string
-        entityVersion:
-          type: string
-        eventIds:
-          type: array
-          items:
-            type: string
