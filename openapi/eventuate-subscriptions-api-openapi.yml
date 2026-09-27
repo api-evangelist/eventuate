@@ -146,6 +146,15 @@ components:
         offset:
           type: integer
           format: int64
+    Subscription:
+      type: object
+      properties:
+        subscriptionId:
+          type: string
+        subscriberId:
+          type: string
+        entityTypesAndEvents:
+          type: object
     CreateSubscriptionRequest:
       type: object
       required:
@@ -160,12 +169,3 @@ components:
             type: array
             items:
               type: string
-    Subscription:
-      type: object
-      properties:
-        subscriptionId:
-          type: string
-        subscriberId:
-          type: string
-        entityTypesAndEvents:
-          type: object

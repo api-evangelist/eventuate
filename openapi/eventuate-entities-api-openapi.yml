@@ -101,6 +101,37 @@ paths:
                 $ref: '#/components/schemas/UpdateEntityResponse'
 components:
   schemas:
+    EntityWithEvents:
+      type: object
+      properties:
+        entityId:
+          type: string
+        entityVersion:
+          type: string
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/Event'
+    UpdateEntityResponse:
+      type: object
+      properties:
+        entityVersion:
+          type: string
+        eventIds:
+          type: array
+          items:
+            type: string
+    CreateEntityResponse:
+      type: object
+      properties:
+        entityId:
+          type: string
+        entityVersion:
+          type: string
+        eventIds:
+          type: array
+          items:
+            type: string
     UpdateEntityRequest:
       type: object
       required:
@@ -113,59 +144,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/EventData'
-    EventData:
-      type: object
-      required:
-      - eventType
-      - eventData
-      properties:
-        eventType:
-          type: string
-        eventData:
-          type: string
-    EntityWithEvents:
-      type: object
-      properties:
-        entityId:
-          type: string
-        entityVersion:
-          type: string
-        events:
-          type: array
-          items:
-            $ref: '#/components/schemas/Event'
-    CreateEntityResponse:
-      type: object
-      properties:
-        entityId:
-          type: string
-        entityVersion:
-          type: string
-        eventIds:
-          type: array
-          items:
-            type: string
-    CreateEntityRequest:
-      type: object
-      required:
-      - entityTypeName
-      - events
-      properties:
-        entityTypeName:
-          type: string
-        events:
-          type: array
-          items:
-            $ref: '#/components/schemas/EventData'
-    UpdateEntityResponse:
-      type: object
-      properties:
-        entityVersion:
-          type: string
-        eventIds:
-          type: array
-          items:
-            type: string
     Event:
       type: object
       properties:
@@ -179,3 +157,25 @@ components:
           type: string
         metadata:
           type: object
+    EventData:
+      type: object
+      required:
+      - eventType
+      - eventData
+      properties:
+        eventType:
+          type: string
+        eventData:
+          type: string
+    CreateEntityRequest:
+      type: object
+      required:
+      - entityTypeName
+      - events
+      properties:
+        entityTypeName:
+          type: string
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/EventData'
