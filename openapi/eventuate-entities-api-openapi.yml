@@ -112,6 +112,18 @@ components:
           type: array
           items:
             type: string
+    CreateEntityRequest:
+      type: object
+      required:
+      - entityTypeName
+      - events
+      properties:
+        entityTypeName:
+          type: string
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/EventData'
     UpdateEntityRequest:
       type: object
       required:
@@ -124,15 +136,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/EventData'
-    UpdateEntityResponse:
-      type: object
-      properties:
-        entityVersion:
-          type: string
-        eventIds:
-          type: array
-          items:
-            type: string
     Event:
       type: object
       properties:
@@ -167,15 +170,12 @@ components:
           type: string
         eventData:
           type: string
-    CreateEntityRequest:
+    UpdateEntityResponse:
       type: object
-      required:
-      - entityTypeName
-      - events
       properties:
-        entityTypeName:
+        entityVersion:
           type: string
-        events:
+        eventIds:
           type: array
           items:
-            $ref: '#/components/schemas/EventData'
+            type: string
