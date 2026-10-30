@@ -1,4 +1,4 @@
-# Eventuate (eventuate)
+# Eventuate
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,58 +66,121 @@
 
 Eventuate is a platform for developing transactional microservices using event sourcing and CQRS patterns, providing frameworks for managing distributed data consistency across services without two-phase commit.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/eventuate/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/eventuate/refs/heads/main/apis.yml)
+**Areas:** CQRS · Distributed Data · Event Sourcing · Event-Driven · Microservices · Sagas
 
-## Scope
+## Eventuate on APIs.io
 
-- **Type:** Index
+Everything profiled for Eventuate is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/eventuate/](https://apis.io/providers/eventuate/)** — or go straight to one of the APIs or properties below.
 
-## Tags
+### APIs (4)
 
-- CQRS
-- Distributed Data
-- Event Sourcing
-- Event-Driven
-- Microservices
-- Sagas
+- [Eventuate Entities API](https://apis.io/apis/eventuate/eventuate-entities-api/) — The Entities API from Eventuate — 2 operation(s) for entities.
+- [Eventuate Events API](https://apis.io/apis/eventuate/eventuate-events-api/) — The Events API from Eventuate — 1 operation(s) for events.
+- [Eventuate Subscriptions API](https://apis.io/apis/eventuate/eventuate-subscriptions-api/) — The Subscriptions API from Eventuate — 4 operation(s) for subscriptions.
+- [Eventuate System API](https://apis.io/apis/eventuate/eventuate-system-api/) — The System API from Eventuate — 1 operation(s) for system.
 
-## Timestamps
+### Published properties
 
-- **Created:** 2026-03-26
-- **Modified:** 2026-05-19
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-## APIs
+#### Agentic access (1)
 
-### Eventuate
+Which operations an agent can call, which act, and which need a human in the loop.
 
-Eventuate is a platform for developing transactional microservices using event sourcing and CQRS patterns, enabling reliable communication and data consistency across distributed services using the Saga pattern and transactional outbox.
+- [Eventuate Agentic Access](https://apis.io/agentic-access/eventuate/eventuate-agentic-access/)
 
-- **Human URL:** [https://eventuate.io/](https://eventuate.io/)
+#### Collections (5)
 
-#### Tags
+Postman and Open Collection request collections.
 
-- CQRS
-- Distributed Data
-- Event Sourcing
-- Event-Driven
-- Microservices
-- Sagas
+- [Eventuate REST API](https://apis.io/collections/eventuate/open-eventuate-api/)
+- [Eventuate REST Entities API](https://apis.io/collections/eventuate/open-eventuate-entities-api/)
+- [Eventuate REST Entities Events API](https://apis.io/collections/eventuate/open-eventuate-events-api/)
+- [Eventuate REST Entities Subscriptions API](https://apis.io/collections/eventuate/open-eventuate-subscriptions-api/)
+- [Eventuate REST Entities System API](https://apis.io/collections/eventuate/open-eventuate-system-api/)
 
-#### Properties
+#### Security (1)
 
-- [OpenAPI](https://raw.githubusercontent.com/api-evangelist/eventuate/refs/heads/main/openapi/eventuate-api.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/eventuate-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/eventuate-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+Authentication, trust centre, and vulnerability disclosure.
 
-## Common Properties
+- [Eventuate Domain Security](https://apis.io/security/eventuate/eventuate-domain-security/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Eventuate Plans Pricing](https://apis.io/plans/eventuate/eventuate-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Eventuate Rate Limits](https://apis.io/rate-limits/eventuate/eventuate-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Eventuate Finops](https://apis.io/finops/eventuate/eventuate-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
 - [Website](https://eventuate.io/)
 - [Documentation](https://eventuate.io/docs/general/getting-started.html)
-- [Getting Started](https://eventuate.io/exampleapps.html)
-- [Git Hub](https://github.com/eventuate-tram)
+- [Getting started](https://eventuate.io/exampleapps.html)
 - [Blog](https://eventuate.io/news.html)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 19.8** — emerging · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 57.1 |
+| Contract quality | 42.1 |
+| Contract governance | 0.0 |
+| Operational transparency | 13.2 |
+| Developer ergonomics | 11.9 |
+| Access clarity | 7.9 |
+
+**Agent readiness 15.4** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | — |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | — |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 5.9** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/eventuate/](https://apis.io/providers/eventuate/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Eventuate: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/eventuate/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
